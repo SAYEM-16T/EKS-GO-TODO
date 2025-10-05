@@ -33,20 +33,20 @@ jobs:
 
     - name: Build and push auth-service
       run: |
-        docker build -f Dockerfile.auth -t $IMAGE_NAME_AUTH:latest -t $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }} .
+        docker build -t $IMAGE_NAME_AUTH:latest -t $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }} ./auth-service
         docker push $IMAGE_NAME_AUTH:latest
         docker push $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }}
 
     - name: Build and push frontend
       run: |
-        docker build -f Dockerfile.frontend -t $IMAGE_NAME_FRONTEND:latest -t $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }} .
+        docker build -t $IMAGE_NAME_FRONTEND:latest -t $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }} ./frontend
         docker push $IMAGE_NAME_FRONTEND:latest
         docker push $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }}
 
     - name: Clone GitOps repo
       run: |
-        git clone https://x-access-token:${{ secrets.GITOPS_TOKEN }}@github.com/sayemiit/go-todo-gitops.git gitops
-        cd gitops
+        git clone https://x-access-token:${{ secrets.GITOPS_TOKEN }}@github.com/SAYEM-16T/K8s_gitOps.git manifests
+        cd manifests
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
 
@@ -54,10 +54,7 @@ jobs:
       run: |
         cd gitops
 
-        # Update auth-service image tag
         sed -i "s|image: $IMAGE_NAME_AUTH:.*|image: $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }}|g" auth-service/deployment.yaml
-
-        # Update frontend image tag
         sed -i "s|image: $IMAGE_NAME_FRONTEND:.*|image: $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }}|g" frontend/deployment.yaml
 
         git add .
