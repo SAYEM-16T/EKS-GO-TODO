@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: <YOUR_DOCKER_HUB_USERNAME>/frontend:latest
+        image: sayemiit/frontend:latest
         ports:
         - containerPort: 80
