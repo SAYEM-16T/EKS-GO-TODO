@@ -81,7 +81,7 @@ This project uses a GitOps workflow for deployment. The workflow is orchestrated
 ## Directory Structure
 
 ```
-/
+.
 ├── .argocd/
 │   └── application.yaml
 ├── .github/
