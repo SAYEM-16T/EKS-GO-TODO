@@ -54,8 +54,8 @@ jobs:
       run: |
         cd gitops
 
-        sed -i "s|image: $IMAGE_NAME_AUTH:.*|image: $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }}|g" auth-deployment.yaml
-        sed -i "s|image: $IMAGE_NAME_FRONTEND:.*|image: $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }}|g" frontend-deployment.yaml
+        sed -i "s|image: $IMAGE_NAME_AUTH:.*|image: $IMAGE_NAME_AUTH:${{ env.SHORT_SHA }}|g" gitops/auth-deployment.yaml
+        sed -i "s|image: $IMAGE_NAME_FRONTEND:.*|image: $IMAGE_NAME_FRONTEND:${{ env.SHORT_SHA }}|g" gitops/frontend-deployment.yaml
 
         git add .
         git commit -m "Update image tags to ${{ env.SHORT_SHA }}"
