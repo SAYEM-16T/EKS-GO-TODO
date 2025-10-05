@@ -21,3 +21,5 @@ spec:
         env:
         - name: MONGO_URI
           value: "mongodb://admin:password@mongo-service:27017"
+        - name: JWT_SECRET
+          value: your-secret-key
